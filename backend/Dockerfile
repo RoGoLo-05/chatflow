@@ -8,6 +8,7 @@ RUN npm ci
 
 COPY . .
 RUN npm run build
+RUN test -f dist/main.js || (echo "ERROR: dist/main.js not found after build" && exit 1)
 
 # Stage 2: Runtime
 FROM node:20-alpine AS runner
