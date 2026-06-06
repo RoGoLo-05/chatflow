@@ -60,12 +60,12 @@ export default function ChatPage() {
     if (!storedToken || !storedUsername) { router.push('/'); return; }
     setUsername(storedUsername);
 
-    fetch(`http://localhost:3000/users/search?username=${storedUsername}`)
+    fetch(`https://chatflow-production-fd36.up.railway.app/users/search?username=${storedUsername}`)
       .then(r => r.json())
       .then(users => {
         if (users.length > 0) {
           setUserId(users[0].id);
-          fetch(`http://localhost:3000/chats/groups/user/${users[0].id}`)
+          fetch(`https://chatflow-production-fd36.up.railway.app/chats/groups/user/${users[0].id}`)
             .then(r => r.json())
             .then(groups => setMyGroups(groups));
         }
@@ -121,7 +121,7 @@ export default function ChatPage() {
 
   async function openGroupChat(group: Group) {
     setActiveGroup(group); setActiveChat(null);
-    const res = await fetch(`http://localhost:3000/chats/groups/${group.id}/messages`);
+    const res = await fetch(`https://chatflow-production-fd36.up.railway.app/chats/groups/${group.id}/messages`);
     setMessages(await res.json());
   }
 
@@ -134,7 +134,7 @@ export default function ChatPage() {
 
   async function handleCreateGroup() {
     if (!groupName.trim()) return;
-    const res = await fetch('http://localhost:3000/chats/groups/create', {
+    const res = await fetch('https://chatflow-production-fd36.up.railway.app/chats/groups/create', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: groupName, creatorId: userId }),
     });

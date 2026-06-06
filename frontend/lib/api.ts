@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://chatflow-production-fd36.up.railway.app';
 
 export async function login(email: string, password: string) {
   const res = await fetch(`${API_URL}/auth/login`, {
